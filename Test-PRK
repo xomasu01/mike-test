@@ -1,1 +1,23 @@
-Ini adalah untuk menampilkan hasil dari test untuk Software QA Tester.
+import { test, expect } from '@playwright/test';
+
+test.describe('Create Account - Mobipaid', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('https://stage.mobipaid.com/en/register);
+  });
+});
+
+test('Verify Positive Case', async ({ page }) => {
+  await page.fill('#signatory_first_name', 'Test');
+  await page.fill('#signatory_last_name', 'QA');
+  await page.fill('#password', 'Testing123!');
+  await page.fill('#name', 'XOMA');
+  await page.fill('#1', '8123454321234');
+  await page.fill('input[name="state"]', 'Yogyakarta');
+
+  await page.selectOption('#country', { index: 1});
+  await page.check('input[type="checkbox"]');
+  await page.click('#btn-register');
+
+  //Verify next page
+  //await expect(page).toHaveURL('/.*next/');
+});
